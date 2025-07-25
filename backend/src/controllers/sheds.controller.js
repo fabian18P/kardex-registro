@@ -1,5 +1,6 @@
 import { pool } from "../db.js";
 
+// LLAMAR A TODOS LOS GALPONES
 export const getSheds = async (req, res) => {
   try {
     const { rows } = await pool.query("SELECT * FROM galpon");
@@ -10,6 +11,7 @@ export const getSheds = async (req, res) => {
   }
 };
 
+// LLAMAR A UN GALPON
 export const getShed = async (req, res) => {
   try {
     const { etiqueta_galpon } = req.params;
@@ -26,6 +28,7 @@ export const getShed = async (req, res) => {
   }
 };
 
+// INSERTAR UN GALPON
 export const createShed = async (req, res) => {
   try {
     const data = req.body;
@@ -40,6 +43,7 @@ export const createShed = async (req, res) => {
   }
 };
 
+// ELIMINAR UN GALPON
 export const deleteShed = async (req, res) => {
   try {
     const { lote_galpon } = req.params;
@@ -56,6 +60,7 @@ export const deleteShed = async (req, res) => {
   }
 };
 
+// ACTUALIZAR UN GALPON
 export const updateShed = async (req, res) => {
   try {
     const { lote_galpon } = req.params;

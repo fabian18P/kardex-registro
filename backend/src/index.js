@@ -1,7 +1,7 @@
 import express from 'express'
 import userRoutes from './routes/users.routes.js'
 import shedRoutes from './routes/sheds.routes.js'
-import henRoutes from './routes/hen.routes.js'
+import henRoutes from './routes/hens.routes.js'
 import morgan from 'morgan'
 
 const app = express() 
