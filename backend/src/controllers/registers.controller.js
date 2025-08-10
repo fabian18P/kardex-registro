@@ -1,7 +1,7 @@
 import { pool } from "../db.js";
 
 // LLAMAR REGISTROS KARDEX
-export const getIntakes = async (req, res) => {
+export const getRegisters = async (req, res) => {
   try {
     const estado = await pool.query('SELECT * FROM estado_galpon');
     const alimentacion = await pool.query('SELECT * FROM alimentacion');
@@ -19,7 +19,7 @@ export const getIntakes = async (req, res) => {
 };
 
 // LLAMAR REGISTRO KARDEX
-export const getIntake = async (req, res) => {
+export const getRegister = async (req, res) => {
   try {
     const { registro_id } = req.params;
 
@@ -50,7 +50,7 @@ export const getIntake = async (req, res) => {
 };
 
 // INSERTAR REGISTRO KARDEX
-export const createIntake = async (req, res) => {
+export const createRegister = async (req, res) => {
   const client = await pool.connect();
   try {
     const data = req.body;
@@ -115,7 +115,7 @@ export const createIntake = async (req, res) => {
 };
 
 // ELIMINAR REGISTRO KARDEX
-export const deleteIntake = async (req, res) => {
+export const deleteRegister = async (req, res) => {
   try {
     const { registro_id } = req.params;
 
@@ -150,7 +150,7 @@ export const deleteIntake = async (req, res) => {
 };
 
 // ACTUALIZAR REGISTRO KARDEX
-export const updateIntake = async (req, res) => {
+export const updateRegister = async (req, res) => {
   const client = await pool.connect();
   try {
     const { estado_id, alimentacion_id,  produccion_id} = req.params;

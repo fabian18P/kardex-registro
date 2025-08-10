@@ -28,42 +28,6 @@ export const getUser = async (req, res) => {
   }
 };
 
-// INSERTAR USUARIO
-export const createUser = async (req, res) => {
-  try {
-    const data = req.body;
-    const { rows } = await pool.query(
-      `INSERT INTO usuario (dni, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno, genero, fecha_nacimiento, pais, region, provincia, distrito, direccion, celular, correo_electronico, contrasena, imagen) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
-      [
-        data.dni,
-        data.primer_nombre,
-        data.segundo_nombre,
-        data.apellido_paterno,
-        data.apellido_materno,
-        data.genero,
-        data.fecha_nacimiento,
-        data.pais,
-        data.region,
-        data.provincia,
-        data.distrito,
-        data.direccion,
-        data.celular,
-        data.correo_electronico,
-        data.contrasena,
-        data.imagen,
-      ]
-    );
-    return res.json(rows[0]);
-  } catch (error) {
-    console.error(error);
-    if (error?.code === "23505") {
-      return res.status(409).json({ message: "DNI duplicado" });
-    }
-    return res.status(500).json({ message: "Error al crear el usuario" });
-  }
-};
-
 // ELIMINAR USUARIO
 export const deleteUser = async (req, res) => {
   try {
