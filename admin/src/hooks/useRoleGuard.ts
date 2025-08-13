@@ -11,7 +11,7 @@ export function useRoleGuard(allowedRoles: string[]) {
   useEffect(() => {
     if (user === null) {
       // No hay usuario, redirigir a login
-      router.push("auth/login");
+      router.push("");
       return;
     }
 
