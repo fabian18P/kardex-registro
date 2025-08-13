@@ -11,32 +11,39 @@ interface User {
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Al montar, recuperar datos guardados si existen
+    // Al montar, recuperar el usuario del localStorage y token de cookies
     const storedUser = localStorage.getItem("user");
-    const storedToken = localStorage.getItem("token");
+    setUser(storedUser ? JSON.parse(storedUser) : null);
 
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
+    const token = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("access_token="))
+      ?.split("=")[1];
+
+    // Si tienes el token, lo usas en el hook
+    if (token) {
+      // Aquí, puedes manejar la validación del token si es necesario
     }
+
+    setLoading(false);
   }, []);
 
   const login = (userData: User, authToken: string) => {
     localStorage.setItem("user", JSON.stringify(userData));
-    localStorage.setItem("token", authToken);
+    // Almacenar el token en una cookie HttpOnly en lugar de localStorage
+    document.cookie = `access_token=${authToken}; path=/; max-age=${60 * 60 * 24 * 30}; secure; SameSite=Lax`;
     setUser(userData);
-    setToken(authToken);
   };
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    // Eliminar la cookie del token
+    document.cookie = "access_token=; path=/; max-age=0; secure; SameSite=Lax";
     setUser(null);
-    setToken(null);
   };
 
-  return { user, token, login, logout };
+  return { user, loading, login, logout };
 }

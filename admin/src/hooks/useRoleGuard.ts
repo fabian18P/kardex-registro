@@ -5,32 +5,35 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export function useRoleGuard(allowedRoles: string[]) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth(); // Añadimos el estado de 'loading'
   const router = useRouter();
 
   useEffect(() => {
+    // No hacer nada si el estado de carga no ha terminado
+    if (loading) return;
+
+    // Si no hay usuario, redirige al login
     if (user === null) {
-      // No hay usuario, redirigir a login
-      router.push("");
+      router.replace("/auth/login");
       return;
     }
 
+    // Si el usuario no tiene el rol permitido, redirige a su dashboard
     if (!allowedRoles.includes(user.rol_nombre)) {
-      // Usuario sin permiso, redirigir a su dashboard según rol
       switch (user.rol_nombre) {
         case "admin":
-          router.push("/dashboard/admin");
+          router.replace("/dashboard/admin");
           break;
         case "operario":
-          router.push("/dashboard/operario");
+          router.replace("/dashboard/operario");
           break;
         case "visitante":
-          router.push("/dashboard/visitante");
+          router.replace("/dashboard/visitante");
           break;
         default:
-          router.push("auth/login");
+          router.replace("/");
           break;
       }
     }
-  }, [user, allowedRoles, router]);
+  }, [user, allowedRoles, router, loading]); // Asegúrate de incluir 'loading' en las dependencias
 }
