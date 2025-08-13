@@ -5,18 +5,18 @@ import { authJwt } from '../middlewares/index.js'
 const router = Router();
 
 // LLAMAR REGISTROS DE GALLINAS
-router.get("/gallina", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario, authJwt.isVisitante], getHens);
+router.get("/gallina", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario', 'visitante'])], getHens);
 
 // LLAMAR REGISTRO DE LOTE DE GALLINA
-router.get("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario, authJwt.isVisitante], getHen);
+router.get("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario', 'visitante'])], getHen);
 
 // INSERTAR LOTE DE GALLINAS
-router.post("/gallina", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], createHen);
+router.post("/gallina", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], createHen);
 
 // ELIMINAR LOTE DE GALLINAS
-router.delete("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], deleteHen);
+router.delete("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], deleteHen);
 
 // ACTUALIZAR LOTE DE GALLINAS
-router.put("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], updateHen);
+router.put("/gallina/:gallina_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], updateHen);
 
 export default router;

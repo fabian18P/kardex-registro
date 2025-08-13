@@ -4,7 +4,7 @@ import { authJwt, verifySignup } from "../middlewares/index.js"
 
 const router = Router()
 
-router.post("/signup", [authJwt.verifyToken, authJwt.isAdmin, verifySignup.checkDuplicateDniOrEmail, verifySignup.checkRolesExisted], signUp)
+router.post("/signup", [authJwt.verifyToken, authJwt.hasRole(['admin']), verifySignup.checkDuplicateDniOrEmail, verifySignup.checkRolesExisted], signUp)
 router.post("/signin", signIn)
 
 export default router;

@@ -1,9 +1,14 @@
-import React from 'react';
+"use client";
 
-const Loading = () => {
+import { useRoleGuard } from "@/hooks/useRoleGuard";
+
+export default function VisitanteDashboard() {
+  useRoleGuard(["visitante"]);
+
   return (
-    <div>asdasd</div>
+    <div>
+      <h1>Panel Visitante</h1>
+      {/* contenido */}
+    </div>
   );
-};
-
-export default Loading;
+}

@@ -1,9 +1,14 @@
-import React from 'react';
+"use client";
 
-const Loading = () => {
+import { useRoleGuard } from "@/hooks/useRoleGuard";
+
+export default function AdminDashboard() {
+  useRoleGuard(["admin"]);
+
   return (
-    <div>asdasd</div>
+    <div>
+      <h1>Panel Admin</h1>
+      {/* contenido */}
+    </div>
   );
-};
-
-export default Loading;
+}

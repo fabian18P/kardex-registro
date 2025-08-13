@@ -5,18 +5,18 @@ import { authJwt } from '../middlewares/index.js'
 const router = Router();
 
 // LLAMAR REGISTROS KARDEX
-router.get("/registro", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario, authJwt.isVisitante], getRegisters);
+router.get("/registro", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario', 'visitante'])], getRegisters);
 
 // LLAMAR REGISTRO KARDEX
-router.get("/registro/:registro_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario, authJwt.isVisitante], getRegister);
+router.get("/registro/:registro_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario', 'visitante'])], getRegister);
 
 // INSERTAR REGISTRO KARDEX
-router.post("/registro", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], createRegister);
+router.post("/registro", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], createRegister);
 
 // ELIMINAR REGISTRO KARDEX
-router.delete("/registro/:registro_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], deleteRegister);
+router.delete("/registro/:registro_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], deleteRegister);
 
 // ACTUALIZAR REGISTRO KARDEX
-router.put("/registro/:registro_id", [authJwt.verifyToken, authJwt.isAdmin, authJwt.isOperario], updateRegister);
+router.put("/registro/:registro_id", [authJwt.verifyToken, authJwt.hasRole(['admin', 'operario'])], updateRegister);
 
 export default router;
