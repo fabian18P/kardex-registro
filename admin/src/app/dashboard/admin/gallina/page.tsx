@@ -2,13 +2,13 @@
 
 import { useRoleGuard } from "@/hooks/useRoleGuard";
 
-
-export default function AdminDashboard() {
+export default function AdminGallina() {
   useRoleGuard(["admin"]);
 
   return (
     <div>
-      <h1>Bienvenido</h1>
+      <h1>Gallina</h1>
+      {/* contenido */}
     </div>
   );
 }

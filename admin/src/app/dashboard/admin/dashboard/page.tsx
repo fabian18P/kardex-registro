@@ -1,14 +1,13 @@
 "use client";
-
+import { LabelPanelTitle } from "@/components/ui";
 import { useRoleGuard } from "@/hooks/useRoleGuard";
-
 
 export default function AdminDashboard() {
   useRoleGuard(["admin"]);
 
   return (
     <div>
-      <h1>Bienvenido</h1>
+      <LabelPanelTitle>Dashboard</LabelPanelTitle>
     </div>
   );
 }

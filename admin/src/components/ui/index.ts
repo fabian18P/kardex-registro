@@ -1,11 +1,25 @@
-import Button from "./Button";
-import Input from "./Input";
-import Label from "./Label";
+import ButtonLogin from "./ButtonLogin";
 import ButtonSidebar from "./ButtonSidebar";
+import ButtonGreen from "./ButtonGreen";
+import ButtonBlue from "./ButtonBlue";
+import ButtonRed from "./ButtonRed";
+import Input from "./Input";
+import InputModal from "./InputModal";
+import Label from "./Label";
+import LabelPanelTitle from "./LabelPanelTitle";
+import LabelModalInput from "./LabelModalInput";
+import LabelModalSeccion from "./LabelModalSeccion";
 
 export {
-    Button,
+    ButtonLogin,
+    ButtonSidebar,
+    ButtonGreen,
+    ButtonBlue,
+    ButtonRed,
     Input,
+    InputModal,
     Label,
-    ButtonSidebar
+    LabelPanelTitle,
+    LabelModalInput,
+    LabelModalSeccion
 }

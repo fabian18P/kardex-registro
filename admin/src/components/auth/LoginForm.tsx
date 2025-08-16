@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Button, Input, Label } from "@/components/ui";
+import { ButtonLogin, Input, Label } from "@/components/ui";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -112,7 +112,7 @@ export default function LoginForm() {
 
       {error && <p className="text-red-500">{error}</p>}
 
-      <Button type="submit">Ingresar</Button>
+      <ButtonLogin type="submit">Ingresar</ButtonLogin>
     </form>
   );
 }
