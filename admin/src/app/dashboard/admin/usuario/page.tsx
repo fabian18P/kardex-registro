@@ -1,3 +1,4 @@
+//src/app/dashboard/admin/usuario/page.tsx
 "use client";
 import { useState } from "react";
 import { InputModal, LabelPanelTitle, LabelModalSeccion, LabelModalInput } from "@/components/ui";

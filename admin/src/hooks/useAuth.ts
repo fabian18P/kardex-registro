@@ -13,27 +13,28 @@ export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Al montar, recuperar el usuario del localStorage y token de cookies
-    const storedUser = localStorage.getItem("user");
-    setUser(storedUser ? JSON.parse(storedUser) : null);
-
+  // Función para obtener el token de las cookies
+  const getToken = (): string | null => {
+    if (typeof document === 'undefined') return null;
+    
     const token = document.cookie
       .split("; ")
       .find(row => row.startsWith("access_token="))
       ?.split("=")[1];
+    
+    return token || null;
+  };
 
-    // Si tienes el token, lo usas en el hook
-    if (token) {
-      // Aquí, puedes manejar la validación del token si es necesario
-    }
-
+  useEffect(() => {
+    // Al montar, recuperar el usuario del localStorage
+    const storedUser = localStorage.getItem("user");
+    setUser(storedUser ? JSON.parse(storedUser) : null);
     setLoading(false);
   }, []);
 
   const login = (userData: User, authToken: string) => {
     localStorage.setItem("user", JSON.stringify(userData));
-    // Almacenar el token en una cookie HttpOnly en lugar de localStorage
+    // Almacenar el token en una cookie
     document.cookie = `access_token=${authToken}; path=/; max-age=${60 * 60 * 24 * 30}; secure; SameSite=Lax`;
     setUser(userData);
   };
@@ -45,5 +46,11 @@ export function useAuth() {
     setUser(null);
   };
 
-  return { user, loading, login, logout };
+  return { 
+    user, 
+    loading, 
+    login, 
+    logout,
+    getToken // Exportamos la función para obtener el token
+  };
 }

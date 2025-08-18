@@ -9,6 +9,7 @@ interface ModalProps {
   onSubmit?: () => void;
   submitText?: string;
   loading?: boolean;
+  showSubmitButton?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({ 
@@ -18,7 +19,8 @@ const Modal: React.FC<ModalProps> = ({
   children, 
   onSubmit,
   submitText = "Registrar",
-  loading = false
+  loading = false,
+  showSubmitButton = true
 }) => {
   if (!isOpen) return null;
 
@@ -43,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({
           <button 
             onClick={onClose} 
             disabled={loading}
-            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-800 transition duration-300 disabled:opacity-50"
+            className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-800 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             X
           </button>
@@ -54,21 +56,15 @@ const Modal: React.FC<ModalProps> = ({
             {children}
           </div>
           
-          <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={loading}
-              className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition duration-300 disabled:opacity-50"
-            >
-              Cancelar
-            </button>
-            <ButtonGreen 
-              text={loading ? "Procesando..." : submitText} 
-              type="submit"
-              disabled={loading}
-            />
-          </div>
+          {showSubmitButton && (
+            <div className="flex justify-end gap-2">
+              <ButtonGreen 
+                text={loading ? "Procesando..." : submitText} 
+                type="submit"
+                disabled={loading}
+              />
+            </div>
+          )}
         </form>
       </div>
     </div>
