@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+/* Personalizar el contenedor de la paginación */
+.p-paginator {
+  margin-top: 1rem; /* Espacio superior */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Personalizar los botones de página */
+.p-paginator-page {
+  background-color: #311800;   /* Fondo oscuro */
+  color: white;                /* Texto blanco */
+  padding: 0.5rem 1rem;        /* Espaciado dentro de los botones */
+  margin: 0 0.25rem;           /* Espaciado entre botones */
+  cursor: pointer;             /* Cambia el cursor a mano */
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Efecto hover sobre los números de página */
+.p-paginator-page:hover {
+  background-color: #67312f;   /* Fondo más claro cuando pasa el ratón */
+}
+
+/* Botones "Anterior" y "Siguiente" */
+.p-paginator-prev, .p-paginator-next {
+  color: #311800;
+  padding: 0.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Efecto hover en los botones "Anterior" y "Siguiente" */
+.p-paginator-prev:hover, .p-paginator-next:hover {
+  background-color: #67312f;
+}
+
+/* Botones "Primera página" y "Última página" */
+.p-paginator-first, .p-paginator-last {
+  color: #311800;                /* Texto blanco */
+  padding: 0.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin: 0 5px;              /* Separar un poco los botones */
+}
+
+/* Efecto hover sobre "Primera página" y "Última página" */
+.p-paginator-first:hover, .p-paginator-last:hover {
+  background-color: #67312f;  /* Fondo más claro al pasar el ratón */
+}

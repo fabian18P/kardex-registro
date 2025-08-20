@@ -50,32 +50,4 @@ export const userService = {
       };
     }
   },
-
-  async obtenerUsuarios(token: string): Promise<User[]> {
-    console.log('🌐 userService: Obteniendo lista de usuarios');
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/users`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': token,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      console.log('📥 Usuarios obtenidos:', responseData);
-
-      // Asumiendo que la respuesta tiene la estructura { success: true, data: User[] }
-      return responseData.data || responseData.users || [];
-
-    } catch (error) {
-      console.error('❌ userService: Error al obtener usuarios:', error);
-      throw error;
-    }
-  }
 };

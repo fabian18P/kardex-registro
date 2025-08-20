@@ -5,8 +5,8 @@ export const API = {
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const url = `${API.baseURL}${path}`;
   
-  console.log('🔗 API URL:', url);
-  console.log('🔄 API Request:', {
+  console.log('API URL:', url);
+  console.log('API Request:', {
     url,
     method: init?.method || 'GET',
     body: init?.body ? JSON.parse(init.body as string) : null

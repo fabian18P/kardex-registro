@@ -28,8 +28,6 @@ export function useUsers() {
     setLoading(true);
     setError(null);
     
-    console.log('🔄 useUsers: Iniciando registro de usuario');
-    
     try {
       const response = await fetchWithToken('http://localhost:4000/api/signup', {
         method: 'POST',
@@ -67,7 +65,7 @@ export function useUsers() {
     setError(null);
     
     try {
-      const response = await fetchWithToken('http://localhost:4000/api/users', {
+      const response = await fetchWithToken('http://localhost:4000/api/usuario', {
         method: 'GET',
       });
 
@@ -76,9 +74,9 @@ export function useUsers() {
       }
 
       const responseData = await response.json();
-      console.log('📥 Usuarios obtenidos:', responseData);
+      console.log('📥 Usuarios obtenidosssssss:', responseData);
 
-      return responseData.data || responseData.users || [];
+      return responseData || [];
       
     } catch (err) {
       const errorMessage = err instanceof Error 
