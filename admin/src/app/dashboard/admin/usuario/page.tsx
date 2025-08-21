@@ -22,7 +22,7 @@ export default function AdminUsuario() {
     genero: "",
     fecha_nacimiento: "",
     dni: "",
-    pais: "Perú", // Valor por defecto
+    pais: "Perú",
     region: "",
     provincia: "",
     distrito: "",
@@ -71,11 +71,9 @@ export default function AdminUsuario() {
   const handleSubmit = async () => {
     try {
       await registrarUsuario(userData);
-      alert("Usuario registrado exitosamente");
       closeModal();
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
-      // El error ya se maneja en el hook useUsers
     }
   };
 
