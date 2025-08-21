@@ -167,7 +167,7 @@ export default function AdminUsuario() {
             </div>
           </div>
         </Modal>
-        <TablaUsuario/>
+        <TablaUsuario isOpen={true} />
       </div>
     </div>
   );
