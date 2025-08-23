@@ -74,49 +74,49 @@ export default function AdminUsuario() {
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"> {error} </div>
           )}
           
-          <div>
-            <LabelModalSeccion>DATOS DEL USUARIO</LabelModalSeccion>
-              <LabelModalInput>Nombre</LabelModalInput>
-              <InputModal id="nombre" name="nombre" type="text" value={userData.nombre} onChange={handleChange} required/>
+          <LabelModalSeccion>DATOS DEL USUARIO</LabelModalSeccion>
+          <div className="mb-6">
+            <LabelModalInput>Nombre</LabelModalInput>
+            <InputModal id="nombre" name="nombre" type="text" value={userData.nombre} onChange={handleChange} required/>
 
-              <LabelModalInput>Apellido</LabelModalInput>
-              <InputModal id="apellido" name="apellido" type="text" value={userData.apellido} onChange={handleChange}/>
+            <LabelModalInput>Apellido</LabelModalInput>
+            <InputModal id="apellido" name="apellido" type="text" value={userData.apellido} onChange={handleChange}/>
 
-              <LabelModalInput>DNI</LabelModalInput>
-              <InputModal id="dni" name="dni" type="text" value={userData.dni} onChange={handleChange} minLength={8} maxLength={8} required/>
+            <LabelModalInput>DNI</LabelModalInput>
+            <InputModal id="dni" name="dni" type="text" value={userData.dni} onChange={handleChange} minLength={8} maxLength={8} required/>
 
-              <LabelModalInput>Género</LabelModalInput>
-              <select className="block w-full border-1 border-color-[#311800] rounded-md bg-gray-100 mt-2 pl-3 pr-3 py-1 text-base text-gray-900 sm:text-sm/6" id="genero" name="genero" value={userData.genero} onChange={handleChange} required>
-                <option value="" disabled>Selecciona una opción</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-              </select>
+            <LabelModalInput>Género</LabelModalInput>
+            <select className="block w-full border-1 border-color-[#311800] rounded-md bg-gray-100 mt-2 pl-3 pr-3 py-1 text-base text-gray-900 sm:text-sm/6" id="genero" name="genero" value={userData.genero} onChange={handleChange} required>
+              <option value="" disabled>Selecciona una opción</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
 
-              <LabelModalInput>Fecha de nacimiento</LabelModalInput>
-              <InputModal id="fecha_nacimiento" name="fecha_nacimiento" type="date" value={userData.fecha_nacimiento} onChange={handleChange} required/>
+            <LabelModalInput>Fecha de nacimiento</LabelModalInput>
+            <InputModal id="fecha_nacimiento" name="fecha_nacimiento" type="date" value={userData.fecha_nacimiento} onChange={handleChange} required/>
 
-              <LabelModalInput>Contraseña</LabelModalInput>
-              <InputModal id="contrasena" name="contrasena" type="password" value={userData.contrasena} onChange={handleChange} minLength={8} required />
+            <LabelModalInput>Contraseña</LabelModalInput>
+            <InputModal id="contrasena" name="contrasena" type="password" value={userData.contrasena} onChange={handleChange} minLength={8} required />
           </div>
 
-          <div className="mt-6">
-            <LabelModalSeccion>INFORMACIÓN DE CONTACTO</LabelModalSeccion>
-              <LabelModalInput>Dirección</LabelModalInput>
-              <InputModal id="direccion" name="direccion" type="text" value={userData.direccion} onChange={handleChange} required/>
+          <LabelModalSeccion>INFORMACIÓN DE CONTACTO</LabelModalSeccion>
+          <div>
+            <LabelModalInput>Dirección</LabelModalInput>
+            <InputModal id="direccion" name="direccion" type="text" value={userData.direccion} onChange={handleChange} required/>
 
-              <LabelModalInput>Celular</LabelModalInput>
-              <InputModal id="celular" name="celular" type="number" value={userData.celular} onChange={handleChange} minLength={9} maxLength={9} required/>
+            <LabelModalInput>Celular</LabelModalInput>
+            <InputModal id="celular" name="celular" type="number" value={userData.celular} onChange={handleChange} minLength={9} maxLength={9} required/>
 
-              <LabelModalInput>Email</LabelModalInput>
-              <InputModal id="correo_electronico" name="correo_electronico" type="email" value={userData.correo_electronico} onChange={handleChange} required/>
+            <LabelModalInput>Email</LabelModalInput>
+            <InputModal id="correo_electronico" name="correo_electronico" type="email" value={userData.correo_electronico} onChange={handleChange} required/>
 
-              <LabelModalInput>Rol</LabelModalInput>
-              <select className="block w-full border-1 border-color-[#311800] rounded-md bg-gray-100 mt-2 pl-3 pr-3 py-1 text-base text-gray-900 sm:text-sm/6" id="roles" name="roles" value={userData.roles} onChange={handleChange} required>
-                <option value="" disabled>Selecciona un rol</option>
-                <option value="admin">Admin</option>
-                <option value="operario">Operario</option>
-                <option value="visitante">Visitante</option>
-              </select>
+            <LabelModalInput>Rol</LabelModalInput>
+            <select className="block w-full border-1 border-color-[#311800] rounded-md bg-gray-100 mt-2 pl-3 pr-3 py-1 text-base text-gray-900 sm:text-sm/6" id="roles" name="roles" value={userData.roles} onChange={handleChange} required>
+              <option value="" disabled>Selecciona un rol</option>
+              <option value="admin">Admin</option>
+              <option value="operario">Operario</option>
+              <option value="visitante">Visitante</option>
+            </select>
           </div>
         </Modal>
         <TablaUsuario isOpen={true} />

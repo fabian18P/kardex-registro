@@ -9,7 +9,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { ModalEliminarUsuario } from "@/app/dashboard/admin/usuario/modalUsuario"; // Ajusta la ruta según tu estructura
+import { ModalEliminarUsuario, ModalActualizarUsuario } from "@/app/dashboard/admin/usuario/modalUsuario"; // Ajusta la ruta según tu estructura
 
 interface TableProps {
   isOpen: boolean;
@@ -23,7 +23,9 @@ const TablaUsuario: React.FC<TableProps> = ({ isOpen }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [first, setFirst] = useState(0);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<string | null>(null);
+  const [userToUpdate, setUserToUpdate] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -39,36 +41,50 @@ const TablaUsuario: React.FC<TableProps> = ({ isOpen }) => {
 
   if (!isOpen) return null;
 
-  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGlobalFilter(e.target.value);
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => { setGlobalFilter(e.target.value);};
+  const onPageChange = (e: { first: number; rows: number }) => { setFirst(e.first);};
+
+
+
+
+
+
+
+
+  const handleUpdate = (userId: string) => {
+    setUserToUpdate(userId);
+    setIsUpdateModalOpen(true); // Abrir el modal de actualización
   };
 
-  const onPageChange = (e: { first: number; rows: number }) => {
-    setFirst(e.first);
-  };
-
-  const handleEdit = async (userId: string) => {
-    console.log("Edit user", userId);
-    const currentUser = usuarios.find(user => user.dni === userId);
-
-    if (!currentUser) {
-      console.error("Usuario no encontrado");
-      return;
-    }
-
-    const updatedUser: User = {
-      ...currentUser,
-      nombre: "Nuevo nombre",
-    };
-
-    try {
-      await actualizarUsuario(userId, updatedUser);
-      const usuariosData = await obtenerUsuarios();
-      setUsuarios(usuariosData);
-    } catch (error) {
-      console.error("Error al actualizar el usuario", error);
+  const confirmUpdate = async () => {
+    if (userToUpdate) {
+      try {
+        await eliminarUsuario(userToUpdate);
+        const usuariosData = await obtenerUsuarios();
+        setUsuarios(usuariosData);
+        setIsUpdateModalOpen(false);
+        setUserToUpdate(null);
+      } catch (error) {
+        console.error("Error al eliminar el usuario", error);
+      }
     }
   };
+
+  const cancelUpdate = () => {
+    setIsUpdateModalOpen(false);
+    setUserToUpdate(null);
+  };
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
 
   const handleDelete = (userId: string) => {
     setUserToDelete(userId);
@@ -107,13 +123,14 @@ const TablaUsuario: React.FC<TableProps> = ({ isOpen }) => {
         
         <Column header="Acción" body={(rowData: User) => (
           <div className="text-gray-200 flex">
-            <div className="m-1"><Button label="Editar" icon="pi pi-pencil" className="bg-blue-700 p-1 rounded-lg hover:bg-blue-900 transition transform duration-300 ease-in-out" onClick={() => handleEdit(rowData.dni)} /></div>
+            <div className="m-1"><Button label="Editar" icon="pi pi-pencil" className="bg-blue-700 p-1 rounded-lg hover:bg-blue-900 transition transform duration-300 ease-in-out" onClick={() => handleUpdate(rowData.dni)} /></div>
             <div className="m-1"><Button label="Eliminar" icon="pi pi-trash" className="bg-red-600 text-white p-1 rounded-lg hover:bg-red-700 transition transform duration-300 ease-in-out" onClick={() => handleDelete(rowData.dni)} /></div>
           </div>
         )} headerClassName="bg-[#311800] border-[#311800] border-1 text-gray-200 p-2" className="p-1 border-[#311800] border-1 bg-gray-50 text-[#311800]" />
       </DataTable>
 
       <ModalEliminarUsuario isOpen={isDeleteModalOpen} onConfirm={confirmDelete} onCancel={cancelDelete} userToDelete={userToDelete}/>
+      <ModalActualizarUsuario isOpen={isUpdateModalOpen} onConfirm={confirmUpdate} onCancel={cancelUpdate} userToUpdate={userToUpdate}/>
     </div>
   );
 };
