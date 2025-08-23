@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 
 interface User {
   correo_electronico: string;
-  primer_nombre: string;
-  apellido_paterno: string;
+  nombre: string;
+  apellido: string;
   rol_id: number;
   rol_nombre: string;
-  imagen: string;
 }
 
 export function useAuth() {

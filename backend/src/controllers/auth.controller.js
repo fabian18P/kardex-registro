@@ -10,6 +10,7 @@ const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN ?? "1d";
 const norm = (s) => (typeof s === "string" ? s.trim() : s);
 
 export const signUp = async (req, res) => {
+  console.log(req.body);
   try {
     const data = req.body;
     console.log(data);
@@ -29,7 +30,7 @@ export const signUp = async (req, res) => {
     if (data?.roles && data.roles.length > 0) {
       // Verificar si el rol existe en la base de datos
       const result = await pool.query("SELECT id FROM rol WHERE nombre = $1", [
-        data.roles[0],
+        data.roles,
       ]);
 
       if (result.rows.length > 0) {
@@ -55,34 +56,19 @@ export const signUp = async (req, res) => {
     // 4) Insertar usuario con el rol asignado
     const { rows } = await pool.query(
       `INSERT INTO usuario (
-        dni, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno,
-        genero, fecha_nacimiento, pais, region, provincia, distrito, direccion,
-        celular, correo_electronico, contrasena, imagen, id_rol
-      )
-      VALUES (
-        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17
-      )
-      RETURNING 
-        dni, primer_nombre, segundo_nombre, apellido_paterno, apellido_materno,
-        genero, fecha_nacimiento, pais, region, provincia, distrito, direccion,
-        celular, correo_electronico, imagen, created_at`,
+        dni, nombre, apellido, genero, fecha_nacimiento, direccion,
+        celular, correo_electronico, contrasena, id_rol
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING dni`,
       [
         data.dni,
-        data.primer_nombre,
-        data.segundo_nombre,
-        data.apellido_paterno,
-        data.apellido_materno,
+        data.nombre,
+        data.apellido,
         data.genero,
         data.fecha_nacimiento,
-        data.pais,
-        data.region,
-        data.provincia,
-        data.distrito,
         data.direccion,
         data.celular,
         email,
         hash, // Contraseña con hash
-        data.imagen,
         role, // Asignar el id del rol aquí, que ya está correcto
       ]
     );
@@ -96,11 +82,11 @@ export const signUp = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    console.error(error);
+    console.error("Error al registrar el usuario:", error);  // Esto dará más detalles sobre el error
     if (error?.code === "23505") {
       return res.status(409).json({ message: "DNI o correo duplicado" });
     }
-    return res.status(500).json({ message: "Error al crear el usuario" });
+    return res.status(500).json({ message: "Error al crear el usuario", error: error.message });
   }
 };
 
@@ -115,7 +101,7 @@ export const signIn = async (req, res) => {
 
     // 1) Buscar usuario y traer el hash
     const { rows } = await pool.query(
-      `SELECT u.dni, u.correo_electronico, u.contrasena, u.primer_nombre, u.apellido_paterno, u.imagen,
+      `SELECT u.dni, u.correo_electronico, u.contrasena, u.nombre, u.apellido,
           r.id     AS rol_id,
           r.nombre AS rol_nombre
         FROM usuario AS u

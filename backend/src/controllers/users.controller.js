@@ -51,24 +51,17 @@ export const updateUser = async (req, res) => {
     const { dni } = req.params;
     const data = req.body;
     const { rows, rowCount } = await pool.query(
-      `UPDATE usuario SET primer_nombre = $1, segundo_nombre = $2, apellido_paterno = $3, apellido_materno = $4, genero = $5, fecha_nacimiento = $6, pais = $7, region = $8, provincia = $9, distrito = $10, direccion = $11, celular = $12, correo_electronico = $13, contrasena = $14, imagen = $15
-        WHERE dni = $16 RETURNING *`,
+      `UPDATE usuario SET nombre = $1, apellido = $2, genero = $3, fecha_nacimiento = $4, direccion = $5, celular = $6, correo_electronico = $7, contrasena = $8
+        WHERE dni = $9`,
       [
-        data.primer_nombre,
-        data.segundo_nombre,
-        data.apellido_paterno,
-        data.apellido_materno,
+        data.nombre,
+        data.apellido,
         data.genero,
         data.fecha_nacimiento,
-        data.pais,
-        data.region,
-        data.provincia,
-        data.distrito,
         data.direccion,
         data.celular,
         data.correo_electronico,
         data.contrasena,
-        data.imagen,
         dni,
       ]
     );
